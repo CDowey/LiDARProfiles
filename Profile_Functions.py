@@ -11,7 +11,6 @@ Created on Mon Jan 14 08:57:38 2019
 import arcpy
 import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib.transforms as mtransforms
 
 def feature_class_to_pandas_data_frame(feature_class, field_list):
     """
