@@ -11,6 +11,7 @@ Created on Mon Jan 14 08:57:38 2019
 import arcpy
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.transforms as mtransforms
 
 def feature_class_to_pandas_data_frame(feature_class, field_list):
     """
@@ -31,7 +32,7 @@ def feature_class_to_pandas_data_frame(feature_class, field_list):
 
 def Create_Profile(Line, DEM):
     """
-    Creates a pandas DataFrame of the attribute table that results from the ArcGIS Stack Profile tool.
+    Creates a pandas DataFrame from the attribute table that results from the ArcGIS Stack Profile tool.
     Useful for further analyzing or plotting profiles in Python.
     If the line input contains multiple lines these can be filtered by the LINE_ID field.
     
@@ -48,7 +49,25 @@ def Create_Profile(Line, DEM):
     ----------
     
     Pandas DataFrame object
+    
     """
+    
+    def feature_class_to_pandas_data_frame(feature_class, field_list):
+    """
+    Load data into a Pandas Data Frame for subsequent analysis.
+    :param feature_class: Input ArcGIS Feature Class.
+    :param field_list: Fields for input.
+    :return: Pandas DataFrame object.
+    """
+    return pd.DataFrame(
+        arcpy.da.FeatureClassToNumPyArray(
+            in_table=feature_class,
+            field_names=field_list,
+            skip_nulls=False,
+            null_value=-99999
+        )
+    )
+    
     arcpy.Delete_management('in_memory\profile')
     
     arcpy.StackProfile_3d(Line, DEM, 'in_memory\profile')
@@ -60,7 +79,7 @@ def Create_Profile(Line, DEM):
     return df
 
 
-def Plot_Profile(profile_dataframe, line_color, xmax, xmin, ymax, ymin, aspect, shade):
+def Plot_Profile(profile_dataframe, line_color, xmin, xmax, ymin, ymax, aspect, shade):
     """
     Function that uses matplotlib to plot a simple graph for a profile
     line_color most easily supplied as HTML color code ie '#D0D0D0'
