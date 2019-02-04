@@ -68,6 +68,15 @@ def Profile_to_dataframe(dem, profile, sampling_interval):
     '''
     Profile function that uses rasterio and geopandas to produce a dataframe of raster values for points along a line at a defined interval.
     
+    Parameters
+    ----------
+    dem : spatial raster
+        ex) A digital elevation model
+    profile : line(s) 
+        Elevation data is extracted from raster along these lines
+    sampling_interval : int, float
+        Interval between elevation extraction points along profile lines
+    
     '''
     
     df = pd.DataFrame(columns = ['LineID', 'X', 'Y', 'Distance', 'Z'])
