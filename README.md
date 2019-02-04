@@ -1,8 +1,9 @@
 # LiDARProfiles
 A series of scripts for constructing profiles from DEMs.
 
-ProfileFunctions_arcpy.py uses the ArcGIS arcpy module for extracting elevation information along profile lines
-ProfileFunctions_rasterio.py completes the same ____ but with open-source tools such as rasterio and geopandas.
+ProfileFunctions_arcpy.py uses the ArcGIS arcpy module for extracting elevation information along profile lines.
+
+ProfileFunctions_rasterio.py completes the same task but with open-source tools such as rasterio and geopandas.
 
 ## Example Plots
 
